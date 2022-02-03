@@ -7,6 +7,7 @@
     min-height: 600px;
     flex-direction: column;
     padding: 2rem 1.3rem;
+    background-color: #0d1117;
 
     @media (max-height: 700px) {
         height: auto;
@@ -20,8 +21,18 @@
         min-height: 600px;
         border-radius: 10px;
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-        background-color: #161a2b;
+        background-color: #161b22;
         color: #fff;
+
+        .notLogin {
+            margin-top: 1rem;
+
+            .illustration {
+                max-width: 100%;
+                display: block;
+                margin: 2rem auto 0;
+            }
+        }
 
         .todoWrap {
             margin-top: 3rem;
@@ -33,9 +44,9 @@
                 display: block;
                 width: 100%;
                 padding: 14px 32px 14px 16px;
-                color: #fff;
+                color: #FFF;
                 background: transparent;
-                border: 2px solid #5d0cff;
+                border: 2px solid #66dbfc;
                 border-radius: 0.25rem;
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
@@ -52,8 +63,8 @@
                 border: none;
                 border-radius: 0 0.25rem 0.25rem 0;
                 outline: none;
-                background: linear-gradient(90deg, rgba(93, 12, 255, 1) 0%, rgba(155, 0, 250, 1) 100%);
-                color: #fff;
+                background: #66dbfc;
+                color: #161b22;
                 text-transform: capitalize;
                 font-weight: bold;
             }

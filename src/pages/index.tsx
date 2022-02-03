@@ -1,5 +1,6 @@
-import type { NextPage } from 'next'
-import { ToDoList } from '../components/ToDoList'
+import type { NextPage } from 'next';
+
+import { ToDoList } from '../components/ToDoList';
 
 const Home: NextPage = () => {
 	return (
