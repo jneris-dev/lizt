@@ -1,8 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signOut } from "firebase/auth";
 
-import { auth, database } from "../service/firebase";
-import { push, ref } from "firebase/database";
+import { auth } from "../service/firebase";
 
 type User = {
     id: string;

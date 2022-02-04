@@ -1,6 +1,8 @@
-import React from 'react';
+import { ref, set } from 'firebase/database';
+import React, { useEffect } from 'react';
 
 import { useAuth } from '../../hooks/useAuth';
+import { database } from '../../service/firebase';
 
 import styles from './styles.module.scss';
 
@@ -10,6 +12,16 @@ export function Header() {
     async function handleLogin(params: string) {
         await signIn(params);
     }
+
+    useEffect(() => {
+        if (user)
+            set(ref(database, `users/${user?.id}/author`), {
+                authorId: user.id,
+                username: user?.name,
+                email: user?.email,
+                profile_picture: user?.avatar
+            });
+    }, [user])
 
     return (
         <header className={styles.header}>
