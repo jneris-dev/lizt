@@ -27,7 +27,7 @@ export function ToDo({ task, ...props }: TaskProps) {
             setIsDeletingTask(true)
 
             setTimeout(() => {
-                remove(ref(database, `users/${user?.id}/toDos/${task.id}`));
+                remove(ref(database, `users/${user?.id}/To-dos/${task.id}`));
 
                 setIsDeletingTask(false)
 
@@ -37,13 +37,13 @@ export function ToDo({ task, ...props }: TaskProps) {
     }
 
     function completeTask() {
-        update(ref(database, `users/${user?.id}/toDos/${task.id}`), {
+        update(ref(database, `users/${user?.id}/To-dos/${task.id}`), {
             isComplete: !task.isComplete,
         })
     }
 
     function editTask() {
-        update(ref(database, `users/${user?.id}/toDos/${task.id}`), {
+        update(ref(database, `users/${user?.id}/To-dos/${task.id}`), {
             name: newTask,
         })
         taskRef.current.focus();
@@ -52,7 +52,7 @@ export function ToDo({ task, ...props }: TaskProps) {
 
     function updateTask() {
         if (newTask !== '') {
-            update(ref(database, `users/${user?.id}/toDos/${task.id}`), {
+            update(ref(database, `users/${user?.id}/To-dos/${task.id}`), {
                 name: newTask,
             })
             setIsEditingTask(false)

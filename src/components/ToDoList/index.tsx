@@ -19,7 +19,7 @@ export function ToDoList() {
     const [toDos, setToDos] = useState<TaskInterface[]>([]);
 
     useEffect(() => {
-        const todoRef = ref(database, `users/${user?.id}/toDos`);
+        const todoRef = ref(database, `users/${user?.id}/To-dos`);
         const unsubscribe = onValue(todoRef, toDos => {
             const todos = toDos.val();
 
@@ -38,7 +38,7 @@ export function ToDoList() {
     async function addToDo(event: FormEvent) {
         event.preventDefault();
 
-        const todoRef = ref(database, `users/${user?.id}/toDos`);
+        const todoRef = ref(database, `users/${user?.id}/To-dos`);
 
         if (task === '') {
             toast.error('Task must be specified')

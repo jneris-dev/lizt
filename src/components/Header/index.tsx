@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useAuth } from '../../hooks/useAuth';
 
 import styles from './styles.module.scss';
@@ -9,6 +10,7 @@ export function Header() {
     async function handleLogin(params: string) {
         await signIn(params);
     }
+
     return (
         <header className={styles.header}>
             {user ?
