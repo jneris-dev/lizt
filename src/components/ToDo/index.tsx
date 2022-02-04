@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { ref, remove, update } from 'firebase/database';
+import { toast } from 'react-toastify';
+import '../../../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
@@ -14,9 +16,24 @@ interface TaskProps {
 
 export function ToDo({ task, ...props }: TaskProps) {
     const { user } = useAuth();
+    const [newTask, setNewTask] = useState('');
+    const [isEditingTask, setIsEditingTask] = useState(false);
+    const [isDeletingTask, setIsDeletingTask] = useState(false);
+    const taskRef: any = useRef(null);
 
     function deleteTask() {
-        remove(ref(database, `users/${user?.id}/toDos/${task.id}`));
+        const loading = toast.loading('Deleting this task')
+        if (window.confirm('Are you sure you want to delete this task?')) {
+            setIsDeletingTask(true)
+
+            setTimeout(() => {
+                remove(ref(database, `users/${user?.id}/toDos/${task.id}`));
+
+                setIsDeletingTask(false)
+
+                toast.update(loading, { render: 'Task deleted successfully', type: "success", isLoading: false, autoClose: 1500 })
+            }, 1000);
+        }
     }
 
     function completeTask() {
@@ -25,12 +42,67 @@ export function ToDo({ task, ...props }: TaskProps) {
         })
     }
 
+    function editTask() {
+        update(ref(database, `users/${user?.id}/toDos/${task.id}`), {
+            name: newTask,
+        })
+        taskRef.current.focus();
+        setIsEditingTask(true)
+    };
+
+    function updateTask() {
+        if (newTask !== '') {
+            update(ref(database, `users/${user?.id}/toDos/${task.id}`), {
+                name: newTask,
+            })
+            setIsEditingTask(false)
+            toast.success('Task updated');
+        } else {
+            toast.warning('No task found');
+            taskRef.current.focus();
+        }
+    };
+
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        if (task.isComplete === true) {
+            setNewTask(task.name);
+        } else {
+            task.name = '';
+            setNewTask(e.target.value);
+        }
+    };
+
     return (
-        <div className={`${styles.taskCard} ${task.isComplete && styles.completeTask}`} id={task.id}>
-            <p className={styles.taskTitle} onClick={completeTask}>{task.name}</p>
-            <span onClick={deleteTask}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="#FFF" width="12" height="12" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" /></svg>
-            </span>
+        <div className={`${styles.taskCard} ${task.isComplete && styles.completeTask} ${isDeletingTask && styles.deleting}`} id={task.id}>
+            <input
+                type="text"
+                value={task.name === "" ? newTask : task.name}
+                className={styles.taskTitle}
+                onChange={handleChange}
+                title={task.name}
+                ref={taskRef}
+                readOnly={!isEditingTask && true}
+            />
+            {isEditingTask
+                ?
+                <div>
+                    <span onClick={updateTask}>
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" />
+                    </span>
+                </div>
+                :
+                <div>
+                    <span onClick={completeTask}>
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" />
+                    </span>
+                    <span onClick={editTask}>
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/edit--v1.png" />
+                    </span>
+                    <span onClick={deleteTask}>
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" />
+                    </span>
+                </div>
+            }
         </div>
     );
 }

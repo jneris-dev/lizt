@@ -24,6 +24,10 @@
         background-color: #161b22;
         color: #fff;
 
+        @media (max-width: 390px) {
+            padding: 1.5rem;
+        }
+
         .notLogin {
             margin-top: 1rem;
 
@@ -31,6 +35,23 @@
                 max-width: 100%;
                 display: block;
                 margin: 2rem auto 0;
+            }
+        }
+
+        .emptyListWrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+
+            img {
+                margin-bottom: 1rem;
+            }
+
+            p {
+                color: #263040;
             }
         }
 

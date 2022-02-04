@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { isMobile } from "react-device-detect";
 import { ToastContainer, toast } from 'react-toastify';
 import '../../../node_modules/react-toastify/dist/ReactToastify.min.css';
 
@@ -34,7 +35,9 @@ export function ToDoList() {
         }
     }, [user?.id])
 
-    async function addToDo() {
+    async function addToDo(event: FormEvent) {
+        event.preventDefault();
+
         const todoRef = ref(database, `users/${user?.id}/toDos`);
 
         if (task === '') {
@@ -59,13 +62,17 @@ export function ToDoList() {
         <div className={styles.container}>
 
             <ToastContainer
-                autoClose={2500}
+                position={isMobile ? "bottom-right" : "top-right"}
+                autoClose={1500}
                 pauseOnHover={false}
+                theme="dark"
+                limit={3}
+                pauseOnFocusLoss={false}
             />
 
             <Header />
 
-            <div className={styles.card}>
+            <form className={styles.card} onSubmit={addToDo}>
                 <h1>What's the Plan for Today?</h1>
                 {!user ?
                     <div className={styles.notLogin}>
@@ -83,20 +90,28 @@ export function ToDoList() {
                                 onChange={handleChange}
                                 autoComplete="off"
                             />
-                            <button className={styles.todoButton} onClick={addToDo}>
+                            <button className={styles.todoButton} type="submit">
                                 Add
                             </button>
                         </div>
                         <div className={styles.listWrap}>
-                            {toDos.map((task: TaskInterface, key) => {
-                                return (
-                                    <ToDo task={task} key={key} />
-                                )
-                            })}
+                            {toDos.length === 0
+                                ?
+                                <div className={styles.emptyListWrap}>
+                                    <img src="https://img.icons8.com/pastel-glyph/150/263040/important-file--v1.png" />
+                                    <p>Not To-do added</p>
+                                </div>
+                                :
+                                toDos.map((task: TaskInterface, key) => {
+                                    return (
+                                        <ToDo task={task} key={key} />
+                                    )
+                                })
+                            }
                         </div>
                     </>
                 }
-            </div>
+            </form>
         </div>
     );
 }
