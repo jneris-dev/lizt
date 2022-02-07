@@ -102,7 +102,7 @@ export function ToDoList() {
                                     <p>Not To-do added</p>
                                 </div>
                                 :
-                                toDos.map((task: TaskInterface, key) => {
+                                toDos.slice(0).reverse().map((task: TaskInterface, key) => {
                                     return (
                                         <ToDo task={task} key={key} />
                                     )

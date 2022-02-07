@@ -22,8 +22,10 @@ export function ToDo({ task, ...props }: TaskProps) {
     const taskRef: any = useRef(null);
 
     function deleteTask() {
-        const loading = toast.loading('Deleting this task')
-        if (window.confirm('Are you sure you want to delete this task?')) {
+        const confirm = window.confirm('Are you sure you want to delete this task?');
+
+        if (confirm) {
+            const loading = toast.loading('Deleting this task');
             setIsDeletingTask(true)
 
             setTimeout(() => {
@@ -43,9 +45,7 @@ export function ToDo({ task, ...props }: TaskProps) {
     }
 
     function editTask() {
-        update(ref(database, `users/${user?.id}/todos/${task.id}`), {
-            name: newTask,
-        })
+        setNewTask(task.name)
         taskRef.current.focus();
         setIsEditingTask(true)
     };
@@ -58,6 +58,7 @@ export function ToDo({ task, ...props }: TaskProps) {
             setIsEditingTask(false)
             toast.success('Task updated');
         } else {
+            setNewTask(task.name)
             toast.warning('No task found');
             taskRef.current.focus();
         }
@@ -67,7 +68,6 @@ export function ToDo({ task, ...props }: TaskProps) {
         if (task.isComplete === true) {
             setNewTask(task.name);
         } else {
-            task.name = '';
             setNewTask(e.target.value);
         }
     };
@@ -76,8 +76,8 @@ export function ToDo({ task, ...props }: TaskProps) {
         <div className={`${styles.taskCard} ${task.isComplete && styles.completeTask} ${isDeletingTask && styles.deleting}`} id={task.id}>
             <input
                 type="text"
-                value={task.name === "" ? newTask : task.name}
-                className={styles.taskTitle}
+                value={isEditingTask ? newTask : task.name}
+                className={`${styles.taskTitle} ${isEditingTask && styles.editingTask}`}
                 onChange={handleChange}
                 title={task.name}
                 ref={taskRef}
