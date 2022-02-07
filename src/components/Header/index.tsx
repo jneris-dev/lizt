@@ -1,5 +1,5 @@
-import { ref, set } from 'firebase/database';
 import React, { useEffect } from 'react';
+import { ref, set } from 'firebase/database';
 
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
@@ -21,14 +21,14 @@ export function Header() {
                 email: user?.email,
                 profile_picture: user?.avatar
             });
-    }, [user])
+    }, [user?.id])
 
     return (
         <header className={styles.header}>
             {user ?
                 <div className={styles.userWrapper}>
                     <div className={styles.userInfos}>
-                        <img src={user.avatar} />
+                        <img src={user.avatar} alt={user.name} />
                         <div>
                             <p>Hello, <b>{user.name}</b></p>
                             <span>{user.email}</span>
@@ -41,11 +41,11 @@ export function Header() {
                 :
                 <div className={styles.loginWrapper}>
                     <button className={styles.githubButton} onClick={() => handleLogin('github')}>
-                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/github.png" />
+                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/github.png" alt="github" />
                         Sign up with GitHub
                     </button>
                     <button className={styles.goolgeButton} onClick={() => handleLogin('google')}>
-                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/google-logo.png" />
+                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/google-logo.png" alt="google" />
                         Sign up with Google
                     </button>
                 </div>

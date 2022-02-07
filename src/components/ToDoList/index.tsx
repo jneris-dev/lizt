@@ -73,11 +73,11 @@ export function ToDoList() {
             <Header />
 
             <form className={styles.card} onSubmit={addToDo}>
-                <h1>What's the Plan for Today?</h1>
+                <h1>What&apos;s the Plan for Today?</h1>
                 {!user ?
                     <div className={styles.notLogin}>
                         <p>Login to create your To-do list.</p>
-                        <img src="illustration.svg" className={styles.illustration} />
+                        <img src="illustration.svg" className={styles.illustration} alt="illustration" />
                     </div>
                     :
                     <>
@@ -98,7 +98,7 @@ export function ToDoList() {
                             {toDos.length === 0
                                 ?
                                 <div className={styles.emptyListWrap}>
-                                    <img src="https://img.icons8.com/pastel-glyph/150/263040/important-file--v1.png" />
+                                    <img src="https://img.icons8.com/pastel-glyph/150/263040/important-file--v1.png" alt="illustration not task" />
                                     <p>Not To-do added</p>
                                 </div>
                                 :

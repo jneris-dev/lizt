@@ -87,19 +87,19 @@ export function ToDo({ task, ...props }: TaskProps) {
                 ?
                 <div>
                     <span onClick={updateTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" />
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="update task" />
                     </span>
                 </div>
                 :
                 <div>
                     <span onClick={completeTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" />
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="complete task" />
                     </span>
                     <span onClick={editTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/edit--v1.png" />
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/edit--v1.png" alt="edit task" />
                     </span>
                     <span onClick={deleteTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" />
+                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" alt="delete task" />
                     </span>
                 </div>
             }
