@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ref, set } from 'firebase/database';
+import Switch from 'react-switch';
 
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
@@ -25,6 +26,17 @@ export function Header() {
 
     return (
         <Styles>
+            <Switch
+                onChange={() => { }}
+                checked={true}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                height={10}
+                width={40}
+                handleDiameter={20}
+                offColor=''
+                onColor=''
+            />
             <header className="header">
                 {user ?
                     <div className="userWrapper">
