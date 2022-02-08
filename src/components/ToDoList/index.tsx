@@ -7,9 +7,9 @@ import { onValue, push, ref } from 'firebase/database';
 import { database } from '../../service/firebase'
 import { useAuth } from '../../hooks/useAuth';
 
-import styles from './styles.module.scss'
+import { Styles } from './styles'
 
-import { TaskInterface } from '../../shared/Interfaces';
+import { TaskInterface } from '../../interface/Interfaces';
 import { ToDo } from '../ToDo';
 import { Header } from '../Header';
 
@@ -59,59 +59,61 @@ export function ToDoList() {
     }
 
     return (
-        <div className={styles.container}>
+        <Styles>
+            <div className="container">
 
-            <ToastContainer
-                position={isMobile ? "bottom-right" : "top-right"}
-                autoClose={1500}
-                pauseOnHover={false}
-                theme="dark"
-                limit={3}
-                pauseOnFocusLoss={false}
-            />
+                <ToastContainer
+                    position={isMobile ? "bottom-right" : "top-right"}
+                    autoClose={1500}
+                    pauseOnHover={false}
+                    theme="dark"
+                    limit={3}
+                    pauseOnFocusLoss={false}
+                />
 
-            <Header />
+                <Header />
 
-            <form className={styles.card} onSubmit={addToDo}>
-                <h1>What&apos;s the Plan for Today?</h1>
-                {!user ?
-                    <div className={styles.notLogin}>
-                        <p>Login to create your To-do list.</p>
-                        <img src="illustration.svg" className={styles.illustration} alt="illustration" />
-                    </div>
-                    :
-                    <>
-                        <div className={styles.todoWrap}>
-                            <input
-                                type="text"
-                                className={styles.todoInput}
-                                placeholder="Add a To-do"
-                                value={task}
-                                onChange={handleChange}
-                                autoComplete="off"
-                            />
-                            <button className={styles.todoButton} type="submit">
-                                Add
-                            </button>
+                <div className="card">
+                    <h1>What&apos;s the Plan for Today?</h1>
+                    {!user ?
+                        <div className="notLogin">
+                            <p>Login to create your To-do list.</p>
+                            <img src="illustration.svg" className="illustration" alt="illustration" />
                         </div>
-                        <div className={styles.listWrap}>
-                            {toDos.length === 0
-                                ?
-                                <div className={styles.emptyListWrap}>
-                                    <img src="https://img.icons8.com/pastel-glyph/150/263040/important-file--v1.png" alt="illustration not task" />
-                                    <p>Not To-do added</p>
-                                </div>
-                                :
-                                toDos.slice(0).reverse().map((task: TaskInterface, key) => {
-                                    return (
-                                        <ToDo task={task} key={key} />
-                                    )
-                                })
-                            }
-                        </div>
-                    </>
-                }
-            </form>
-        </div>
+                        :
+                        <>
+                            <form className="todoWrap" onSubmit={addToDo}>
+                                <input
+                                    type="text"
+                                    className="todoInput"
+                                    placeholder="Add a To-do"
+                                    value={task}
+                                    onChange={handleChange}
+                                    autoComplete="off"
+                                />
+                                <button className="todoButton" type="submit">
+                                    Add
+                                </button>
+                            </form>
+                            <div className="listWrap">
+                                {toDos.length === 0
+                                    ?
+                                    <div className="emptyListWrap">
+                                        <img src="https://img.icons8.com/pastel-glyph/150/000000/important-file--v1.png" alt="illustration not task" />
+                                        <p>Not To-do added</p>
+                                    </div>
+                                    :
+                                    toDos.slice(0).reverse().map((task: TaskInterface, key) => {
+                                        return (
+                                            <ToDo task={task} key={key} />
+                                        )
+                                    })
+                                }
+                            </div>
+                        </>
+                    }
+                </div>
+            </div>
+        </Styles>
     );
 }

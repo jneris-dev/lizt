@@ -6,9 +6,9 @@ import '../../../node_modules/react-toastify/dist/ReactToastify.min.css';
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
 
-import { TaskInterface } from '../../shared/Interfaces';
+import { TaskInterface } from '../../interface/Interfaces';
 
-import styles from './styles.module.scss';
+import { Styles } from './styles';
 
 interface TaskProps {
     task: TaskInterface;
@@ -73,36 +73,38 @@ export function ToDo({ task, ...props }: TaskProps) {
     };
 
     return (
-        <div className={`${styles.taskCard} ${task.isComplete && styles.completeTask} ${isDeletingTask && styles.deleting}`} id={task.id}>
-            <input
-                type="text"
-                value={isEditingTask ? newTask : task.name}
-                className={`${styles.taskTitle} ${isEditingTask && styles.editingTask}`}
-                onChange={handleChange}
-                title={task.name}
-                ref={taskRef}
-                readOnly={!isEditingTask && true}
-            />
-            {isEditingTask
-                ?
-                <div>
-                    <span onClick={updateTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="update task" />
-                    </span>
-                </div>
-                :
-                <div>
-                    <span onClick={completeTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="complete task" />
-                    </span>
-                    <span onClick={editTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/edit--v1.png" alt="edit task" />
-                    </span>
-                    <span onClick={deleteTask}>
-                        <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" alt="delete task" />
-                    </span>
-                </div>
-            }
-        </div>
+        <Styles>
+            <div className={`taskCard ${task.isComplete && "completeTask"} ${isDeletingTask && "deleting"}`} id={task.id}>
+                <input
+                    type="text"
+                    value={isEditingTask ? newTask : task.name}
+                    className={`taskTitle ${isEditingTask && "editingTask"}`}
+                    onChange={handleChange}
+                    title={task.name}
+                    ref={taskRef}
+                    readOnly={!isEditingTask && true}
+                />
+                {isEditingTask
+                    ?
+                    <div>
+                        <span onClick={updateTask}>
+                            <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="update task" />
+                        </span>
+                    </div>
+                    :
+                    <div>
+                        <span onClick={completeTask}>
+                            <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="complete task" />
+                        </span>
+                        <span onClick={editTask}>
+                            <img src="https://img.icons8.com/material-sharp/18/FFFFFF/edit--v1.png" alt="edit task" />
+                        </span>
+                        <span onClick={deleteTask}>
+                            <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" alt="delete task" />
+                        </span>
+                    </div>
+                }
+            </div>
+        </Styles>
     );
 }

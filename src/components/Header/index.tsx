@@ -4,7 +4,7 @@ import { ref, set } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
 
-import styles from './styles.module.scss';
+import { Styles } from './styles';
 
 export function Header() {
     const { user, signIn, signOutUser } = useAuth();
@@ -24,32 +24,34 @@ export function Header() {
     }, [user?.id])
 
     return (
-        <header className={styles.header}>
-            {user ?
-                <div className={styles.userWrapper}>
-                    <div className={styles.userInfos}>
-                        <img src={user.avatar} alt={user.name} />
-                        <div>
-                            <p>Hello, <b>{user.name}</b></p>
-                            <span>{user.email}</span>
+        <Styles>
+            <header className="header">
+                {user ?
+                    <div className="userWrapper">
+                        <div className="userInfos">
+                            <img src={user.avatar} alt={user.name} />
+                            <div>
+                                <p>Hello, <b>{user.name}</b></p>
+                                <span>{user.email}</span>
+                            </div>
                         </div>
+                        <button className="signOut" onClick={signOutUser}>
+                            Sign Out
+                        </button>
                     </div>
-                    <button className={styles.signOut} onClick={signOutUser}>
-                        Sign Out
-                    </button>
-                </div>
-                :
-                <div className={styles.loginWrapper}>
-                    <button className={styles.githubButton} onClick={() => handleLogin('github')}>
-                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/github.png" alt="github" />
-                        Sign up with GitHub
-                    </button>
-                    <button className={styles.goolgeButton} onClick={() => handleLogin('google')}>
-                        <img src="https://img.icons8.com/material-sharp/24/FFFFFF/google-logo.png" alt="google" />
-                        Sign up with Google
-                    </button>
-                </div>
-            }
-        </header>
+                    :
+                    <div className="loginWrapper">
+                        <button className="githubButton" onClick={() => handleLogin('github')}>
+                            <img src="https://img.icons8.com/material-sharp/24/FFFFFF/github.png" alt="github" />
+                            Sign up with GitHub
+                        </button>
+                        <button className="goolgeButton" onClick={() => handleLogin('google')}>
+                            <img src="https://img.icons8.com/material-sharp/24/FFFFFF/google-logo.png" alt="google" />
+                            Sign up with Google
+                        </button>
+                    </div>
+                }
+            </header>
+        </Styles>
     );
 }
