@@ -3,3 +3,7 @@ export interface TaskInterface {
     name: string,
     isComplete: boolean,
 }
+
+export interface ThemeInterface {
+    toggleTheme(): void,
+}

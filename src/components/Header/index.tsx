@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import { ref, set } from 'firebase/database';
-import Switch from 'react-switch';
 
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
 
+import { ThemeInterface } from '../../interface/Interfaces';
+
+import { Toogle } from '../Toogle';
+
 import { Styles } from './styles';
 
-export function Header() {
+export function Header({ toggleTheme, ...props }: ThemeInterface) {
     const { user, signIn, signOutUser } = useAuth();
 
     async function handleLogin(params: string) {
@@ -26,17 +29,7 @@ export function Header() {
 
     return (
         <Styles>
-            <Switch
-                onChange={() => { }}
-                checked={true}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                height={10}
-                width={40}
-                handleDiameter={20}
-                offColor=''
-                onColor=''
-            />
+            <Toogle toggleTheme={toggleTheme} />
             <header className="header">
                 {user ?
                     <div className="userWrapper">

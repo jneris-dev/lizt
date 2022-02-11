@@ -31,4 +31,24 @@ export default createGlobalStyle`
         color: inherit;
         text-decoration: none;
     }
+
+    .todoapp {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        min-height: 600px;
+        flex-direction: column;
+        padding: 2rem 1.3rem;
+        position: relative;
+
+        @media (max-height: 700px) {
+            height: auto;
+        }
+
+        @media (max-width: 390px) {
+            padding: 2rem 0;
+        }
+    }
 `;

@@ -3,6 +3,8 @@ import { isMobile } from "react-device-detect";
 import { ToastContainer, toast } from 'react-toastify';
 import '../../../node_modules/react-toastify/dist/ReactToastify.min.css';
 
+import { useThemes } from '../../hooks/useThemes';
+
 import { onValue, push, ref } from 'firebase/database';
 import { database } from '../../service/firebase'
 import { useAuth } from '../../hooks/useAuth';
@@ -11,9 +13,9 @@ import { Styles } from './styles'
 
 import { TaskInterface } from '../../interface/Interfaces';
 import { ToDo } from '../ToDo';
-import { Header } from '../Header';
 
 export function ToDoList() {
+    const { title } = useThemes();
     const { user } = useAuth();
     const [task, setTask] = useState('');
     const [toDos, setToDos] = useState<TaskInterface[]>([]);
@@ -66,12 +68,10 @@ export function ToDoList() {
                     position={isMobile ? "bottom-right" : "top-right"}
                     autoClose={1500}
                     pauseOnHover={false}
-                    theme="dark"
+                    theme={title === 'dark' ? "dark" : "light"}
                     limit={3}
                     pauseOnFocusLoss={false}
                 />
-
-                <Header />
 
                 <div className="card">
                     <h1>What&apos;s the Plan for Today?</h1>

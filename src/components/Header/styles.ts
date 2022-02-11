@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Styles = styled.div`
     display: contents;
-
+    
     .header {
         width: 100%;
         max-width: 520px;

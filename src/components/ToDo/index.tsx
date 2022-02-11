@@ -45,9 +45,8 @@ export function ToDo({ task, ...props }: TaskProps) {
     }
 
     function editTask() {
-        setNewTask(task.name)
-        taskRef.current.focus();
-        setIsEditingTask(true)
+        setNewTask(task.name);
+        setIsEditingTask(true);
     };
 
     function updateTask() {
@@ -74,24 +73,24 @@ export function ToDo({ task, ...props }: TaskProps) {
 
     return (
         <Styles>
-            <div className={`taskCard ${task.isComplete && "completeTask"} ${isDeletingTask && "deleting"}`} id={task.id}>
-                <input
-                    type="text"
-                    value={isEditingTask ? newTask : task.name}
-                    className={`taskTitle ${isEditingTask && "editingTask"}`}
-                    onChange={handleChange}
-                    title={task.name}
-                    ref={taskRef}
-                    readOnly={!isEditingTask && true}
-                />
-                {isEditingTask
-                    ?
-                    <div>
-                        <span onClick={updateTask}>
-                            <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="update task" />
-                        </span>
-                    </div>
-                    :
+            {isEditingTask
+                ?
+                <div className="editingWrap">
+                    <input
+                        type="text"
+                        value={isEditingTask ? newTask : task.name}
+                        className={`taskTitle ${isEditingTask && "editingTask"}`}
+                        onChange={handleChange}
+                        title={task.name}
+                        ref={taskRef}
+                    />
+                    <button className="editingButton" onClick={updateTask}>
+                        Update
+                    </button>
+                </div>
+                :
+                <div className={`taskCard ${task.isComplete && "completeTask"} ${isDeletingTask && "deleting"}`} id={task.id}>
+                    <p>{isEditingTask ? newTask : task.name}</p>
                     <div>
                         <span onClick={completeTask}>
                             <img src="https://img.icons8.com/material-sharp/18/FFFFFF/checkmark--v1.png" alt="complete task" />
@@ -103,8 +102,8 @@ export function ToDo({ task, ...props }: TaskProps) {
                             <img src="https://img.icons8.com/material-sharp/18/FFFFFF/delete.png" alt="delete task" />
                         </span>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </Styles>
     );
 }
