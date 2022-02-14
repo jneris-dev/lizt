@@ -18,6 +18,7 @@ export const Styles = styled.div`
 
             @media (max-width: 390px) {
                 padding: 1.5rem;
+                border-radius: 0;
             }
 
             .notLogin {

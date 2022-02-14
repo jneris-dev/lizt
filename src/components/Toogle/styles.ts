@@ -20,7 +20,7 @@ export const Styles = styled.div`
                 width: 43px;
                 height: 20px;
                 border-radius: 10px;
-                background-color: #161b22;
+                background-color: #444;
                 overflow: hidden;
                 cursor: pointer;
 
@@ -42,7 +42,7 @@ export const Styles = styled.div`
                 }
 
                 &:after {
-                    background-color: #161b22;
+                    background-color: #444;
                     left: -58px;
                     transform: scale(0.00001);
                 }
