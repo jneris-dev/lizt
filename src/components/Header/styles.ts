@@ -7,6 +7,13 @@ export const Styles = styled.div`
         width: 100%;
         max-width: 520px;
         padding-bottom: 2rem;
+        padding-top: 1rem;
+
+        @media (max-width: 390px) {
+            padding-top: 1.5rem;
+            padding-left: .8rem;
+            padding-right: .8rem;
+        }
 
         .userWrapper {
             display: flex;

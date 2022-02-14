@@ -1,35 +1,42 @@
 import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 import GlobalStyles from '../styles/global'
 
 import { ThemeProvider } from 'styled-components';
 import light from '../styles/themes/light';
 import dark from '../styles/themes/dark';
-import { useState } from 'react';
 
 import { ToDoList } from '../components/ToDoList';
 import { Header } from '../components/Header';
 
 const Home: NextPage = () => {
-	const [theme, setTheme] = useState('dark')
+	const [theme, setTheme] = useState('dark');
+	const themeMode = theme === 'light' ? light : dark;
 
 	function toggleTheme() {
-		if (theme === 'light') {
-			setTheme('dark');
-		} else {
-			setTheme('light');
-		}
+		theme === 'dark' ? setMode('light') : setMode('dark');
 	}
 
+	function setMode(mode: string) {
+		window.localStorage.setItem('theme', mode);
+		setTheme(mode);
+	}
+
+	useEffect(() => {
+		const localTheme = window.localStorage.getItem('theme');
+		localTheme ? setTheme(localTheme) : setMode('dark');
+	}, []);
+
 	return (
-		<ThemeProvider theme={theme === 'dark' ? dark : light}>
+		<ThemeProvider theme={themeMode}>
 			<GlobalStyles />
 			<main className="todoapp">
-				<Header toggleTheme={toggleTheme} />
+				<Header theme={theme} toggleTheme={toggleTheme} />
 				<ToDoList />
 			</main>
 		</ThemeProvider>
 	)
 }
 
-export default Home
+export default Home;

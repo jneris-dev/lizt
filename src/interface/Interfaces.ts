@@ -5,5 +5,6 @@ export interface TaskInterface {
 }
 
 export interface ThemeInterface {
-    toggleTheme(): void,
+    theme?: string;
+    toggleTheme: () => void;
 }

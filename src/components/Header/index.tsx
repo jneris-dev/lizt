@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import { ref, set } from 'firebase/database';
 
+import GithubCorner from 'react-github-corner';
+import { useTheme } from 'styled-components';
+
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../service/firebase';
-
 import { ThemeInterface } from '../../interface/Interfaces';
 
 import { Toogle } from '../Toogle';
 
 import { Styles } from './styles';
 
-export function Header({ toggleTheme, ...props }: ThemeInterface) {
+export function Header({ toggleTheme, theme, ...props }: ThemeInterface) {
+    const themeColors = useTheme();
     const { user, signIn, signOutUser } = useAuth();
 
     async function handleLogin(params: string) {
@@ -29,6 +32,14 @@ export function Header({ toggleTheme, ...props }: ThemeInterface) {
 
     return (
         <Styles>
+            <GithubCorner
+                href="https://github.com/jneris-dev/lizt"
+                direction="left"
+                bannerColor={theme === 'dark' ? "#FFF" : "#444"}
+                octoColor={themeColors.colors.background}
+                size={60}
+                target="_blank"
+            />
             <Toogle toggleTheme={toggleTheme} />
             <header className="header">
                 {user ?

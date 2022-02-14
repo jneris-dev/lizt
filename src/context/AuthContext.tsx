@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signOut } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signOut, signInWithRedirect } from "firebase/auth";
 
 import { auth } from "../service/firebase";
 
@@ -52,10 +52,10 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         const providerGithub = new GithubAuthProvider();
         const providerGoogle = new GoogleAuthProvider();
 
-        const result = await signInWithPopup(auth, params === 'google' ? providerGoogle : providerGithub);
+        const result = await signInWithRedirect(auth, params === 'google' ? providerGoogle : providerGithub);
 
-        if (result.user) {
-            const { displayName, photoURL, uid, email } = result.user
+        if (result) {
+            const { displayName, photoURL, uid, email } = result
 
             if (!displayName || !photoURL || !email) {
                 throw new Error('Missing informations form Account.');
