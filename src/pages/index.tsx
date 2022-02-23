@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import GlobalStyles from '../styles/global'
@@ -30,6 +31,9 @@ const Home: NextPage = () => {
 
 	return (
 		<ThemeProvider theme={themeMode}>
+			<Head>
+				<title>Lizt - Simple To-do List</title>
+			</Head>
 			<GlobalStyles />
 			<main className="todoapp">
 				<Header theme={theme} toggleTheme={toggleTheme} />
